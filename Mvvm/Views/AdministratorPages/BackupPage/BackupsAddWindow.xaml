@@ -1,0 +1,60 @@
+﻿<Window x:Class="TaskManagement.MVVM.Views.AdministratorPages.BackupsPage.BackupsAddWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Добавление новой резервной копии" Height="400" Width="600">
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Background" Value="#42A5F5"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="5"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Window.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Background="#E3F2FD" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Добавить новую резервную копию" FontSize="30" Foreground="#42A5F5" HorizontalAlignment="Center" Margin="10"/>
+
+            <StackPanel Grid.Row="1" Margin="10">
+                <TextBlock Text="Дата создания резервной копии" Margin="10,0,0,5" Foreground="#42A5F5"/>
+                <TextBox Text="{Binding BackupDate}" Width="300" Height="30" IsReadOnly="True"/>
+
+                <TextBlock Text="Путь к файлу резервной копии" Margin="10,0,0,5" Foreground="#42A5F5"/>
+                <TextBox Text="{Binding BackupFilePath, UpdateSourceTrigger=PropertyChanged}" Width="500" Height="30"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                <Button Content="Сохранить" Command="{Binding SaveCommand}"/>
+                <Button Content="Отмена" Command="{Binding CancelCommand}"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Window>

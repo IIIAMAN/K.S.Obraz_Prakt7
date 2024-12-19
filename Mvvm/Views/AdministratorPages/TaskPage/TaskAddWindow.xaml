@@ -1,0 +1,79 @@
+﻿<Window x:Class="TaskManagement.MVVM.Views.AdministratorPages.TasksPage.TaskAddWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Добавление новой задачи" Height="600" Width="800">
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Background" Value="#1976D2"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+
+        <Style TargetType="DatePicker">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="#E3F2FD" Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Добавить новую задачу" FontSize="30" Foreground="#1976D2" HorizontalAlignment="Center" Margin="10"/>
+
+        <StackPanel Grid.Row="1" Margin="10">
+            <TextBlock Text="Заголовок задачи" Margin="0,0,0,5" Foreground="#1976D2"/>
+            <TextBox Text="{Binding TaskTitle, UpdateSourceTrigger=PropertyChanged}" Width="400" Height="30"/>
+
+            <TextBlock Text="Описание задачи" Margin="10,0,0,5" Foreground="#1976D2"/>
+            <TextBox Text="{Binding TaskDescription, UpdateSourceTrigger=PropertyChanged}" Width="400" Height="100" TextWrapping="Wrap" AcceptsReturn="True"/>
+
+            <TextBlock Text="Срок выполнения" Margin="10,0,0,5" Foreground="#1976D2"/>
+            <DatePicker SelectedDate="{Binding DueDate, UpdateSourceTrigger=PropertyChanged}" Width="400" Height="30"/>
+
+            <TextBlock Text="Статус" Margin="10,0,0,5" Foreground="#1976D2"/>
+            <ComboBox ItemsSource="{Binding Statuses}" DisplayMemberPath="Name" SelectedValuePath="ID" SelectedValue="{Binding SelectedStatusId}" Width="400" Height="30"/>
+
+            <TextBlock Text="Проект" Margin="10,0,0,5" Foreground="#1976D2"/>
+            <ComboBox ItemsSource="{Binding Projects}" DisplayMemberPath="Name" SelectedValuePath="ID" SelectedValue="{Binding SelectedProjectId}" Width="400" Height="30"/>
+
+            <TextBlock Text="Приоритет" Margin="10,0,0,5" Foreground="#1976D2"/>
+            <ComboBox ItemsSource="{Binding Priorities}" DisplayMemberPath="Name" SelectedValuePath="ID" SelectedValue="{Binding SelectedPriorityId}" Width="400" Height="30"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <Button Content="Сохранить" Command="{Binding SaveCommand}"/>
+            <Button Content="Отмена" Command="{Binding CancelCommand}"/>
+        </StackPanel>
+    </Grid>
+</Window>

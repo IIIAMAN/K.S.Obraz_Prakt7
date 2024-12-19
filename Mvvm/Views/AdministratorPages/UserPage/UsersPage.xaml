@@ -1,0 +1,88 @@
+﻿<Page x:Class="TaskManagement.MVVM.Views.AdministratorPages.UsersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:TaskManagement.MVVM.Views.AdministratorPages"
+      xmlns:vm="clr-namespace:TaskManagement.ViewModels.AdministratorPageViewModels"
+      mc:Ignorable="d"
+      Title="Страница пользователей" MinHeight="200" MinWidth="200">
+
+    <Page.DataContext>
+        <vm:UsersPageViewModel />
+    </Page.DataContext>
+
+    <Page.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Background" Value="#2A9D8F"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Border" x:Key="CardStyle">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="BorderBrush" Value="#D0D0D0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                    <Setter Property="Background" Value="#FF78C6E9"/>
+                    <Setter Property="BorderBrush" Value="#4a90e2"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="#f0f4f8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Страница пользователей" FontSize="30" Margin="10" HorizontalAlignment="Center" Foreground="#4a90e2"/>
+
+        <!-- Карточки для каждого пользователя -->
+        <ScrollViewer Grid.Row="1" Margin="10" VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Users}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource CardStyle}" MouseLeftButtonDown="OnCardSelected">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Login}" FontWeight="Bold" FontSize="16"/>
+                                <TextBlock Text="{Binding Role}" FontSize="14"/>
+                                <TextBlock Text="{Binding CreatedAt, StringFormat=\{0:yyyy-MM-dd HH:mm:ss\}}" FontSize="12" Foreground="Gray"/>
+                                <TextBlock Text="{Binding FirstName}" FontSize="14"/>
+                                <TextBlock Text="{Binding LastName}" FontSize="14"/>
+                                <TextBlock Text="{Binding PhoneNumber}" FontSize="14"/>
+                                <TextBlock Text="{Binding ProfileDescription}" FontSize="14"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10" Grid.Row="2">
+            <Button Content="Добавить" Command="{Binding AddUserCommand}"/>
+            <Button Content="Редактировать" Command="{Binding EditUserCommand}" IsEnabled="{Binding SelectedUser}"/>
+            <Button Content="Удалить" Command="{Binding DeleteUserCommand}" IsEnabled="{Binding SelectedUser}"/>
+        </StackPanel>
+    </Grid>
+</Page>

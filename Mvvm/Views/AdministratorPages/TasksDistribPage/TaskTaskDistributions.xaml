@@ -1,0 +1,129 @@
+﻿<Page x:Class="TaskManagement.MVVM.Views.AdministratorPages.TasksDistribPage.TaskDistributionsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:TaskManagement.MVVM.Views.AdministratorPages.TasksDistribPage"
+      xmlns:vm="clr-namespace:TaskManagement.MVVM.ViewModels.AdministratorPageViewModel"
+      mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+      Title="Распределение задач">
+
+    <Page.DataContext>
+        <vm:TaskDistributionsPageViewModel />
+    </Page.DataContext>
+
+    <Page.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Background" Value="#1976D2"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Border" x:Key="CardStyle">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="BorderBrush" Value="#D0D0D0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                    <Setter Property="Background" Value="#FF78C6E9"/>
+                    <Setter Property="BorderBrush" Value="#1976D2"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="#E3F2FD">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="169*"/>
+            <ColumnDefinition Width="231*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Распределение задач" FontSize="30" Foreground="#1976D2" Margin="62,10,62,10" Grid.Column="1"/>
+
+        <!-- Карточки для каждого распределения -->
+        <ScrollViewer Grid.Row="1" Grid.Column="0" Margin="10" VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding TaskDistributions}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical" HorizontalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource CardStyle}" MouseLeftButtonDown="OnCardSelected">
+                            <StackPanel>
+                                <TextBlock Text="ID:" FontSize="14" Foreground="Gray"/>
+                                <TextBlock Text="{Binding ID}" FontSize="14"/>
+                                <TextBlock Text="Задача:" FontSize="14" Foreground="Gray"/>
+                                <TextBlock Text="{Binding TaskTitle}" FontSize="14"/>
+                                <TextBlock Text="Пользователь:" FontSize="14" Foreground="Gray"/>
+                                <TextBlock Text="{Binding UserLogin}" FontSize="14"/>
+                                <TextBlock Text="Дата назначения:" FontSize="14" Foreground="Gray"/>
+                                <TextBlock Text="{Binding AssignedDate, StringFormat='{}{0:yyyy-MM-dd HH:mm:ss}'}" FontSize="14"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <!-- Карточки для каждой задачи и её пользователей -->
+        <ScrollViewer Grid.Row="1" Grid.Column="1" Margin="10" VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Tasks}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical" HorizontalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource CardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Задача:" FontSize="14" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Title}" FontSize="14" FontWeight="Bold"/>
+
+                                <TextBlock Text="Пользователи:" FontSize="14" Foreground="Gray"/>
+                                <ItemsControl ItemsSource="{Binding Users}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding UserLogin}" FontSize="14"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <!-- Кнопки управления -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="160,10,0,10" Grid.Row="2" Grid.ColumnSpan="2" Width="480">
+            <Button Content="Добавить распределение" Command="{Binding AddDistribCommand}" Width="150" Height="34"/>
+            <Button Content="Редактировать распределение" Command="{Binding EditDistribCommand}" IsEnabled="{Binding SelectedTaskDistribution}" Width="150"/>
+            <Button Content="Удалить распределение" Command="{Binding DeleteDistribCommand}" IsEnabled="{Binding SelectedTaskDistribution}" Width="150"/>
+        </StackPanel>
+    </Grid>
+</Page>

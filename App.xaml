@@ -1,0 +1,14 @@
+﻿<Application x:Class="TaskManagement.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:TaskManagement">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/AuthorizationsButtonTheme.xaml"/>
+                <ResourceDictionary Source="Themes/UIColors.xaml"/>
+                <ResourceDictionary Source="Themes/ButtonStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

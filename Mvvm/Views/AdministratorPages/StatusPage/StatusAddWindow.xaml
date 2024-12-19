@@ -1,0 +1,55 @@
+﻿<Window x:Class="TaskManagement.MVVM.Views.AdministratorPages.StatusPage.StatusAddWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Добавление нового статуса" Height="300" Width="400">
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Background" Value="#1E88E5"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="#BBDEFB" Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Добавить новый статус" FontSize="24" FontWeight="Bold" Foreground="#1E88E5" HorizontalAlignment="Center" Margin="10"/>
+
+        <StackPanel Grid.Row="1" Margin="10">
+            <TextBlock Text="Имя статуса" Margin="0,0,0,5" Foreground="#1E88E5"/>
+            <TextBox Text="{Binding StatusName, UpdateSourceTrigger=PropertyChanged}" Width="300" Height="30"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+            <Button Content="Сохранить" Width="100" Command="{Binding SaveCommand}" Margin="0,0,10,0" Height="35"/>
+            <Button Content="Отмена" Width="100" Command="{Binding CancelCommand}" Height="35"/>
+        </StackPanel>
+    </Grid>
+</Window>

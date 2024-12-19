@@ -1,0 +1,31 @@
+﻿name: Proverka Syntaxic
+
+on:
+  push:
+    branches:
+      - onetest
+  pull_request:
+    branches:
+      - onetest
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Proverka repository
+      uses: actions/checkout@v2
+
+    - name: Ustanovka Net
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Dogruzka Nuget
+      run: nuget restore TaskManagement.sln
+
+    - name: Build
+      run: |
+        msbuild TaskManagement.sln /p:Configuration=Release
+
+    - name: Zapusk Analyz
+      run: |
+        msbuild TaskManagement.sln /p:Configuration=Release /p:RunCodeAnalysis=true
