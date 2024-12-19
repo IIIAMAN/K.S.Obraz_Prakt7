@@ -79,12 +79,10 @@ namespace TaskManagement.ViewModels
                 ErrorMessage = "Пожалуйста, заполните все поля.";
                 MessageBox.Show("Заполните все поля");
 
-                // Логируем попытку входа с пустыми полями
                 LogUserActivity(0, UserLogin, "попытка входа с пустыми полями");
                 return;
             }
 
-            // Проверяем логин и пароль через базу данных
             bool isValidUser = AuthenticateUser(UserLogin, UserPassword);
 
             if (isValidUser)
@@ -92,8 +90,7 @@ namespace TaskManagement.ViewModels
                 ErrorMessage = string.Empty;
                 MessageBox.Show("Авторизация прошла успешно");
 
-                // Логируем успешный вход
-                int userId = GetUserId(UserLogin); // Получение корректного UserID
+                int userId = GetUserId(UserLogin);
                 LogUserActivity(userId, UserLogin, "успешный вход в систему");
             }
             else
@@ -101,7 +98,6 @@ namespace TaskManagement.ViewModels
                 ErrorMessage = "Неверный логин или пароль.";
                 MessageBox.Show("Неверный логин или пароль");
 
-                // Логируем неуспешную попытку входа
                 LogUserActivity(0, UserLogin, "неуспешная попытка входа");
             }
         }
@@ -114,7 +110,6 @@ namespace TaskManagement.ViewModels
             }
             else
             {
-                // Логируем действия без использования UserActivityLogger при userId == 0
                 Console.WriteLine($"{DateTime.Now}: {login} - {action}");
             }
         }
@@ -122,7 +117,7 @@ namespace TaskManagement.ViewModels
         private int GetUserId(string login)
         {
             var userRow = GetUserFromDatabase(login);
-            return userRow?.ID ?? 0; // Получаем ID пользователя (если найден)
+            return userRow?.ID ?? 0;
         }
 
         private bool CanExecuteLogin(object parameter)
@@ -142,19 +137,15 @@ namespace TaskManagement.ViewModels
                     return false;
                 }
 
-                // Получаем хэшированный пароль, сохраненный в базе данных (в бинарном формате)
                 byte[] storedPasswordBinary = userRow.Password;
 
-                // Хэшируем введенный пароль
                 byte[] hashedPasswordBinary = HashPasswordBinary(password);
 
-                // Логирование для отладки
                 Console.WriteLine($"Login: {login}");
                 Console.WriteLine($"Password (Input): {password}");
                 Console.WriteLine($"Hashed Password (Input): {BitConverter.ToString(hashedPasswordBinary)}");
                 Console.WriteLine($"Stored Password (DB): {BitConverter.ToString(storedPasswordBinary)}");
 
-                // Сравниваем хэшированные пароли
                 if (!hashedPasswordBinary.SequenceEqual(storedPasswordBinary))
                 {
                     ErrorMessage = "Неверный пароль.";
@@ -237,13 +228,10 @@ namespace TaskManagement.ViewModels
             {
                 Console.WriteLine("Попытка открытия окна TaskManager...");
 
-                // Создаем экземпляр окна с передачей логина
                 MainTaskManagerWindow mainTaskManagerWindow = new MainTaskManagerWindow(login);
 
-                // Закрываем текущее окно
                 Application.Current.MainWindow.Close();
 
-                // Устанавливаем новое окно как главное
                 Application.Current.MainWindow = mainTaskManagerWindow;
 
                 Console.WriteLine("Окно TaskManager успешно создано.");
@@ -262,13 +250,10 @@ namespace TaskManagement.ViewModels
             {
                 Console.WriteLine("Попытка открытия окна TaskExecutor...");
 
-                // Создаем экземпляр окна с передачей логина
                 MainTaskExecutorWindow mainTaskExecutorWindow = new MainTaskExecutorWindow(login);
 
-                // Закрываем текущее окно
                 Application.Current.MainWindow.Close();
 
-                // Устанавливаем новое окно как главное
                 Application.Current.MainWindow = mainTaskExecutorWindow;
 
                 Console.WriteLine("Окно TaskExecutor успешно создано.");

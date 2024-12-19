@@ -70,7 +70,7 @@ namespace TaskManagement.MVVM.ViewModels.ChiefTaskExecutor
 
         private void ExecuteLogout(object parameter)
         {
-            // Логика выхода из системы
+    
         }
     }
 }

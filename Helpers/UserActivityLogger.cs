@@ -20,18 +20,15 @@ namespace TaskManagement.Helpers
             {
                 connection.Open();
 
-                // Проверка существования пользователя с данным userId
                 var checkUserCommand = new SqlCommand("SELECT COUNT(*) FROM Users WHERE ID = @UserID", connection);
                 checkUserCommand.Parameters.AddWithValue("@UserID", userId);
                 int userExists = (int)checkUserCommand.ExecuteScalar();
 
                 if (userExists == 0)
                 {
-                    // Пользователь с данным ID не найден
                     throw new ArgumentException("Пользователь с указанным ID не найден.");
                 }
 
-                // Вставка лога действия пользователя
                 var command = new SqlCommand("INSERT INTO UserActivityLog (UserID, Action, Timestamp) VALUES (@UserID, @Action, @Timestamp)", connection);
                 command.Parameters.AddWithValue("@UserID", userId);
                 command.Parameters.AddWithValue("@Action", $"{login} {action}");

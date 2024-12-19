@@ -65,24 +65,20 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
         {
             try
             {
-                // Проверка на заполнение всех полей
                 if (string.IsNullOrEmpty(BackupFilePath))
                 {
                     MessageBox.Show("Пожалуйста, заполните путь к файлу резервной копии.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
-                // Добавление новой резервной копии
                 _backupsTableAdapter.Insert(BackupDate, BackupFilePath);
 
-                // Логирование успешного добавления резервной копии
                 _userActivityLogger.LogUserActivity(GetUserId(_currentUserLogin), _currentUserLogin, $"успешно добавил резервную копию с датой {BackupDate} и файлом {BackupFilePath}");
 
                 MessageBox.Show("Резервная копия успешно добавлена!");
 
                 BackupAdded?.Invoke(this, EventArgs.Empty);
 
-                // Закрытие окна
                 Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.DataContext == this)?.Close();
             }
             catch (Exception ex)
@@ -93,7 +89,6 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
         private void Cancel(object parameter)
         {
-            // Закрытие окна
             Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.DataContext == this)?.Close();
         }
 

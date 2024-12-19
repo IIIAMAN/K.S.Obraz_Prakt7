@@ -10,7 +10,7 @@ namespace TaskManagement.Data
         public DbSet<AccountData> AccountData { get; set; }
         public DbSet<Backup> Backups { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<Metadata> Metadata { get; set; }
+        public DbSet<Metadataa> Metadata { get; set; }
         public DbSet<Priority> Priorities { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Role> Roles { get; set; }

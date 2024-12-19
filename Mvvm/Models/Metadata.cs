@@ -1,6 +1,6 @@
 ﻿namespace TaskManagement.Models
 {
-    public class Metadata
+    public class Metadataa
     {
         public int ID { get; set; }
         public string EntityName { get; set; }

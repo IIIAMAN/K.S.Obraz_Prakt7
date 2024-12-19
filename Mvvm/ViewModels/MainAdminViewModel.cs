@@ -54,12 +54,12 @@ namespace TaskManagement.ViewModels
             LogoutCommand = new RelayCommand(_ => Logout());
         }
 
-        private void CloseApplication()
+        private static void CloseApplication()
         {
             Application.Current.Shutdown();
         }
 
-        private void MaximizeWindow()
+        private static void MaximizeWindow()
         {
             var mainWindow = Application.Current.MainWindow;
             if (mainWindow.WindowState == WindowState.Normal)
@@ -72,7 +72,7 @@ namespace TaskManagement.ViewModels
             }
         }
 
-        private void MinimizeWindow()
+        private static void MinimizeWindow()
         {
             Application.Current.MainWindow.WindowState = WindowState.Minimized;
         }
@@ -152,7 +152,7 @@ namespace TaskManagement.ViewModels
             loginWindow.Show();
         }
 
-        private int GetUserId(string login)
+        private static int GetUserId(string login)
         {
             TaskManagementDataSet.UsersDataTable usersTable = new TaskManagementDataSet.UsersDataTable();
             UsersTableAdapter usersAdapter = new UsersTableAdapter();
