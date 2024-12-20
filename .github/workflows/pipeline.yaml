@@ -10,25 +10,23 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - name: Proverka repository
       uses: actions/checkout@v2
 
     - name: Ustanovka Net
-      uses: microsoft/setup-msbuild@v1.0.2
+      run: sudo apt-get install -y dotnet-sdk-6.0
 
     - name: Dogruzka Nuget
-      run: nuget restore TaskManagement.sln
+      run: dotnet restore TaskManagement.sln
 
     - name: Build
-      run: |
-        msbuild TaskManagement.sln /p:Configuration=Release
+      run: dotnet build TaskManagement.sln --configuration Release
 
     - name: Zapusk Analyz
-      run: |
-        msbuild TaskManagement.sln /p:Configuration=Release /p:RunCodeAnalysis=true
+      run: dotnet build TaskManagement.sln --configuration Release --no-restore /p:RunCodeAnalysis=true
 
     - name: Run Super-Linter
       uses: github/super-linter@v4
