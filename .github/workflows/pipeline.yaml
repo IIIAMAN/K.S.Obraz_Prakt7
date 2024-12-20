@@ -17,7 +17,21 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Ustanovka Net
-      run: sudo apt-get install -y dotnet-sdk-6.0
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y apt-transport-https
+        sudo apt-get update
+        sudo apt-get install -y dotnet-sdk-6.0
+        sudo apt-get install -y dotnet-runtime-6.0
+
+    - name: Install Mono for .NET Framework
+      run: |
+        sudo apt install -y gnupg ca-certificates
+        sudo mkdir -p /etc/apt/keyrings
+        sudo curl https://download.mono-project.com/repo/xamarin.gpg -o /etc/apt/keyrings/xamarin.asc
+        echo "deb [signed-by=/etc/apt/keyrings/xamarin.asc] https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+        sudo apt-get update
+        sudo apt-get install -y mono-complete
 
     - name: Dogruzka Nuget
       run: dotnet restore TaskManagement.sln
