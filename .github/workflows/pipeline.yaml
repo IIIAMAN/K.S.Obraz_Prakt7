@@ -10,37 +10,32 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - name: Proverka repository
       uses: actions/checkout@v2
 
     - name: Ustanovka Net
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y apt-transport-https
-        sudo apt-get update
-        sudo apt-get install -y dotnet-sdk-6.0
-        sudo apt-get install -y dotnet-runtime-6.0
-
-    - name: Install Mono for .NET Framework
-      run: |
-        sudo apt install -y gnupg ca-certificates
-        sudo mkdir -p /etc/apt/keyrings
-        sudo curl https://download.mono-project.com/repo/xamarin.gpg -o /etc/apt/keyrings/xamarin.asc
-        echo "deb [signed-by=/etc/apt/keyrings/xamarin.asc] https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
-        sudo apt-get update
-        sudo apt-get install -y mono-complete
+      uses: microsoft/setup-msbuild@v1.0.2
 
     - name: Dogruzka Nuget
-      run: dotnet restore TaskManagement.sln
+      run: nuget restore TaskManagement.sln
 
     - name: Build
-      run: dotnet build TaskManagement.sln --configuration Release
+      run: |
+        msbuild TaskManagement.sln /p:Configuration=Release
 
     - name: Zapusk Analyz
-      run: dotnet build TaskManagement.sln --configuration Release --no-restore /p:RunCodeAnalysis=true
+      run: |
+        msbuild TaskManagement.sln /p:Configuration=Release /p:RunCodeAnalysis=true
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
 
     - name: Run Super-Linter
       uses: github/super-linter@v4
