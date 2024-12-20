@@ -188,14 +188,14 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
         {
             try
             {
-                // Валидация данных
+     
                 if (string.IsNullOrWhiteSpace(TaskTitle))
                 {
                     MessageBox.Show("Заголовок задачи не может быть пустым.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
-                // Обновление существующей задачи
+         
                 var taskRow = _dataSet.Tasks.FindByID(TaskId);
 
                 if (taskRow != null)
@@ -215,7 +215,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
                     TaskUpdated?.Invoke(this, EventArgs.Empty);
 
-                    // Закрытие окна
+        
                     Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.DataContext == this)?.Close();
                 }
                 else
@@ -231,7 +231,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
         private void Cancel(object parameter)
         {
-            // Закрытие окна
+   
             Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.DataContext == this)?.Close();
         }
     }

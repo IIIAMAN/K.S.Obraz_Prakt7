@@ -18,7 +18,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
         private ObservableCollection<dynamic> _projects;
         private dynamic _selectedProject;
         private string _currentUserLogin;
-        private readonly UserActivityLogger _userActivityLogger; // Поле для логгера
+        private readonly UserActivityLogger _userActivityLogger;
 
         public ObservableCollection<dynamic> Projects
         {
@@ -58,7 +58,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
         {
             _dataSet = new TaskManagementDataSet();
             _projectsTableAdapter = new ProjectsTableAdapter();
-            _userActivityLogger = new UserActivityLogger(ConfigurationManager.ConnectionStrings["TaskManagement.Properties.Settings.TaskManagementConnectionString"].ConnectionString); // Инициализация логгера
+            _userActivityLogger = new UserActivityLogger(ConfigurationManager.ConnectionStrings["TaskManagement.Properties.Settings.TaskManagementConnectionString"].ConnectionString);
 
             LoadProjects();
 
@@ -84,7 +84,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
         private void AddProject(object parameter)
         {
-            var addProjectWindow = new ProjectAddWindow(CurrentUserLogin); // Передаем логин
+            var addProjectWindow = new ProjectAddWindow(CurrentUserLogin);
             var viewModel = (ProjectAddViewModel)addProjectWindow.DataContext;
 
             viewModel.ProjectAdded += (s, args) => LoadProjects();
@@ -96,14 +96,14 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
         {
             if (SelectedProject != null)
             {
-                var editWindow = new ProjectEditWindow(SelectedProject.ID, CurrentUserLogin); // Передаем ID проекта и логин пользователя
+                var editWindow = new ProjectEditWindow(SelectedProject.ID, CurrentUserLogin);
                 var viewModel = (ProjectEditViewModel)editWindow.DataContext;
 
                 viewModel.ProjectUpdated += (s, args) => LoadProjects();
 
                 if (editWindow.ShowDialog() == true)
                 {
-                    LoadProjects(); // Обновляем данные после редактирования
+                    LoadProjects();
                 }
             }
         }
@@ -121,9 +121,8 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
                         {
                             projectRow.Delete();
                             _projectsTableAdapter.Update(_dataSet.Projects);
-                            LoadProjects(); // Обновляем данные после удаления
+                            LoadProjects();
 
-                            // Логирование удаления
                             _userActivityLogger.LogUserActivity(GetUserId(CurrentUserLogin), CurrentUserLogin, $"удалил проект");
                         }
                     }

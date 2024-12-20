@@ -29,3 +29,9 @@ jobs:
     - name: Zapusk Analyz
       run: |
         msbuild TaskManagement.sln /p:Configuration=Release /p:RunCodeAnalysis=true
+
+    - name: Run Super-Linter
+      uses: github/super-linter@v4
+      env:
+        DEFAULT_BRANCH: main
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

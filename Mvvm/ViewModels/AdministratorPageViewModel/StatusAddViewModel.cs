@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using TaskManagement.Helpers; // Пространство имен для FieldValidator
+using TaskManagement.Helpers;
 using TaskManagement.Models;
 using TaskManagement.TaskManagementDataSetTableAdapters;
 using TaskManagement.ViewModels;
@@ -16,7 +16,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
         private StatusesTableAdapter _statusesTableAdapter;
         private readonly UserActivityLogger _userActivityLogger;
         private string _statusName;
-        private string _currentUserLogin; // Логин текущего пользователя
+        private string _currentUserLogin;
 
         public string StatusName
         {

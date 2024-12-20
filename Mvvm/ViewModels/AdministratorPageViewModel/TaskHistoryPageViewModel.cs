@@ -93,7 +93,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
         {
             if (SelectedTaskHistory != null)
             {
-                var editWindow = new TaskHistoryEditWindow(SelectedTaskHistory.ID, CurrentUserLogin); // Передаем ID истории
+                var editWindow = new TaskHistoryEditWindow(SelectedTaskHistory.ID, CurrentUserLogin);
                 var viewModel = (TaskHistoryEditViewModel)editWindow.DataContext;
 
                 viewModel.HistoryUpdated += (s, args) =>
@@ -104,7 +104,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
                 if (editWindow.ShowDialog() == true)
                 {
-                    LoadTaskHistories(); // Обновляем DataGrid после редактирования
+                    LoadTaskHistories();
                 }
             }
         }
@@ -123,10 +123,9 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
                             historyRow.Delete();
                             _taskHistoryTableAdapter.Update(_dataSet.TaskHistory);
 
-                            // Логирование успешного удаления записи
                             _userActivityLogger.LogUserActivity(GetUserId(_currentUserLogin), _currentUserLogin, $"удалил запись в истории задачи ID {SelectedTaskHistory.ID}");
 
-                            LoadTaskHistories(); // Обновляем данные после удаления
+                            LoadTaskHistories();
                         }
                     }
                     catch (Exception ex)

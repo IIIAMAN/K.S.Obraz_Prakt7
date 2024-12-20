@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using TaskManagement.Helpers; // Пространство имен для FieldValidator
+using TaskManagement.Helpers;
 using TaskManagement.Models;
 using TaskManagement.TaskManagementDataSetTableAdapters;
 using TaskManagement.ViewModels;

@@ -99,17 +99,17 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
         {
             try
             {
-                // Логирование выбранных значений
+   
                 Console.WriteLine($"SelectedTaskId: {SelectedTaskId}, SelectedUserId: {SelectedUserId}");
 
-                // Проверяем, выбраны ли задачи и пользователи
+ 
                 if (SelectedTaskId == 0 || SelectedUserId == 0)
                 {
                     MessageBox.Show("Пожалуйста, выберите задачу и пользователя.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
-                // Обновление существующего распределения
+    
                 var distribRow = _dataSet.TaskDistribution.FindByID(TaskDistribId);
 
                 if (distribRow != null)
@@ -124,7 +124,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
                     DistribUpdated?.Invoke(this, EventArgs.Empty);
 
-                    // Закрытие окна
+          
                     Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.DataContext == this)?.Close();
                 }
                 else
@@ -134,7 +134,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
             }
             catch (Exception ex)
             {
-                // Логирование ошибки
+
                 Console.WriteLine($"Ошибка при обновлении распределения: {ex.Message}");
                 MessageBox.Show($"Ошибка при обновлении распределения: {ex.Message}");
             }
@@ -142,7 +142,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
         private void Cancel(object parameter)
         {
-            // Закрытие окна
+    
             Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.DataContext == this)?.Close();
         }
     }

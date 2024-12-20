@@ -95,7 +95,6 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
                 MessageBox.Show("Запись успешно добавлена!");
 
-                // Логирование успешного добавления записи
                 _userActivityLogger.LogUserActivity(GetUserId(SelectedUserId), SelectedUserId.ToString(), $"добавил запись активности: {Action}");
 
                 LogAdded?.Invoke(this, EventArgs.Empty);

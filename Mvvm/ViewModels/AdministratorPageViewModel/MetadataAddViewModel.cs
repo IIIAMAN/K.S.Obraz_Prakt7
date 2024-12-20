@@ -90,7 +90,6 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
                 _metadataTableAdapter.Insert(EntityName, EntityID, Key, Value);
 
-                // Логирование успешного добавления метаданных
                 _userActivityLogger.LogUserActivity(GetUserId(_currentUserLogin), _currentUserLogin, $"успешно добавил метаданные для сущности {EntityName} с ключом {Key}");
 
                 MessageBox.Show("Метаданные успешно добавлены!");

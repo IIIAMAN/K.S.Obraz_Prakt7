@@ -135,7 +135,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
         {
             try
             {
-                // Валидация данных
+           
                 if (string.IsNullOrWhiteSpace(TaskTitle))
                 {
                     MessageBox.Show("Заголовок задачи не может быть пустым.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -148,7 +148,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
                     return;
                 }
 
-                // Добавление новой задачи
+          
                 var newTaskRow = _dataSet.Tasks.NewTasksRow();
                 newTaskRow.Title = TaskTitle;
                 newTaskRow.Description = TaskDescription;
@@ -157,7 +157,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
                 newTaskRow.StatusID = SelectedStatusId;
                 newTaskRow.ProjectID = SelectedProjectId;
                 newTaskRow.PriorityID = SelectedPriorityId;
-                newTaskRow.CreatedBy = _currentUserId; // Используем идентификатор текущего пользователя
+                newTaskRow.CreatedBy = _currentUserId;
                 newTaskRow.CreatedAt = DateTime.Now;
                 newTaskRow.UpdatedAt = DateTime.Now;
 
@@ -168,7 +168,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
                 TaskAdded?.Invoke(this, EventArgs.Empty);
 
-                // Закрытие окна
+        
                 Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.DataContext == this)?.Close();
             }
             catch (Exception ex)
@@ -179,7 +179,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
         private void Cancel(object parameter)
         {
-            // Закрытие окна
+      
             Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.DataContext == this)?.Close();
         }
     }

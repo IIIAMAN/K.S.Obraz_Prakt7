@@ -19,7 +19,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
         private readonly UserActivityLogger _userActivityLogger;
         private ObservableCollection<TaskManagementDataSet.StatusesRow> _statuses;
         private TaskManagementDataSet.StatusesRow _selectedStatus;
-        private string _currentUserLogin; // Логин текущего пользователя
+        private string _currentUserLogin;
 
         public ObservableCollection<TaskManagementDataSet.StatusesRow> Statuses
         {
@@ -76,7 +76,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
         private void AddStatus(object parameter)
         {
-            var addStatusWindow = new StatusAddWindow(CurrentUserLogin); // Передаем логин
+            var addStatusWindow = new StatusAddWindow(CurrentUserLogin);
             var viewModel = (StatusAddViewModel)addStatusWindow.DataContext;
 
             viewModel.StatusAdded += (s, args) =>
@@ -92,7 +92,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
         {
             if (SelectedStatus != null)
             {
-                var editWindow = new StatusEditWindow(SelectedStatus.ID, CurrentUserLogin); // Передаем ID статуса
+                var editWindow = new StatusEditWindow(SelectedStatus.ID, CurrentUserLogin); 
                 var viewModel = (StatusEditViewModel)editWindow.DataContext;
 
                 viewModel.StatusUpdated += (s, args) =>
@@ -103,7 +103,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
                 if (editWindow.ShowDialog() == true)
                 {
-                    LoadStatuses(); // Обновляем DataGrid после редактирования
+                    LoadStatuses();
                 }
             }
         }
@@ -121,9 +121,9 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
                         {
                             statusRow.Delete();
                             _statusesTableAdapter.Update(_dataSet.Statuses);
-                            LoadStatuses(); // Обновляем данные после удаления
+                            LoadStatuses(); 
 
-                            // Логирование действия удаления
+
                             _userActivityLogger.LogUserActivity(GetUserId(CurrentUserLogin), CurrentUserLogin, $"удалил статус: {SelectedStatus.Name}");
                         }
                     }

@@ -75,7 +75,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
         private void AddRole(object parameter)
         {
-            var addRoleWindow = new RoleAddWindow(CurrentUserLogin); // Передаем логин текущего пользователя
+            var addRoleWindow = new RoleAddWindow(CurrentUserLogin);
             var viewModel = (RoleAddViewModel)addRoleWindow.DataContext;
 
             viewModel.RoleAdded += (s, args) =>
@@ -91,7 +91,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
         {
             if (SelectedRole != null)
             {
-                var editWindow = new RoleEditWindow(SelectedRole.ID, CurrentUserLogin); // Передаем логин текущего пользователя
+                var editWindow = new RoleEditWindow(SelectedRole.ID, CurrentUserLogin);
                 var viewModel = (RoleEditViewModel)editWindow.DataContext;
 
                 viewModel.RoleUpdated += (s, args) =>
@@ -153,7 +153,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
         private int GetUserId(string login)
         {
             var userRow = GetUserFromDatabase(login);
-            return userRow?.ID ?? 0; // Если пользователь не найден, возвращаем 0
+            return userRow?.ID ?? 0;
         }
 
         private TaskManagementDataSet.UsersRow GetUserFromDatabase(string login)

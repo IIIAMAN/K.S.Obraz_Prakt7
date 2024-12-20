@@ -123,7 +123,6 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
         private void Cancel(object parameter)
         {
-            // Закрытие окна
             Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.DataContext == this)?.Close();
         }
 

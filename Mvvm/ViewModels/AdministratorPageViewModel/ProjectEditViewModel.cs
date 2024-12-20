@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using TaskManagement.Helpers; // Пространство имен для FieldValidator
+using TaskManagement.Helpers;
 using TaskManagement.Models;
 using TaskManagement.TaskManagementDataSetTableAdapters;
 using TaskManagement.ViewModels;
@@ -109,7 +109,6 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
                     projectRow.UpdatedAt = DateTime.Now;
                     _projectsTableAdapter.Update(_dataSet.Projects);
 
-                    // Логирование успешного обновления проекта
                     _userActivityLogger.LogUserActivity(GetUserId(_currentUserLogin), _currentUserLogin, $"успешно обновил проект с ID {ProjectId} и именем {ProjectName}");
 
                     MessageBox.Show("Проект успешно обновлен!");

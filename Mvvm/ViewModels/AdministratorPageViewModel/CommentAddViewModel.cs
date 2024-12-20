@@ -124,29 +124,24 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
         {
             try
             {
-                // Проверка на заполнение всех полей
                 if (string.IsNullOrEmpty(Title) || string.IsNullOrEmpty(CommentText) || SelectedTaskId == 0 || SelectedUserId == 0)
                 {
                     MessageBox.Show("Пожалуйста, заполните все поля.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
-                // Логирование данных перед добавлением
                 Console.WriteLine($"Adding new comment: Title = {Title}, CommentText = {CommentText}, TaskID = {SelectedTaskId}, UserID = {SelectedUserId}, CreationDate = {CreationDate}, UpdatedAt = {UpdatedAt}");
 
-                // Добавление нового комментария
                 _commentsTableAdapter.Insert(Title, CommentText, CreationDate, SelectedTaskId, SelectedUserId, CreationDate, UpdatedAt);
 
                 MessageBox.Show("Комментарий успешно добавлен!");
 
                 CommentAdded?.Invoke(this, EventArgs.Empty);
 
-                // Закрытие окна
                 Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.DataContext == this)?.Close();
             }
             catch (Exception ex)
             {
-                // Логирование ошибки
                 Console.WriteLine($"Ошибка при добавлении комментария: {ex.Message}");
                 MessageBox.Show($"Ошибка при добавлении комментария: {ex.Message}");
             }
@@ -154,7 +149,6 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
         private void Cancel(object parameter)
         {
-            // Закрытие окна
             Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.DataContext == this)?.Close();
         }
     }

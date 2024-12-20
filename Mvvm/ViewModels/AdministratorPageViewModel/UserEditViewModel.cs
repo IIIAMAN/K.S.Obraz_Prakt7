@@ -115,7 +115,6 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
             SaveUserCommand = new RelayCommand(SaveUser);
             CancelCommand = new RelayCommand(Cancel);
 
-            // Инициализация поля _userActivityLogger в конструкторе
             _userActivityLogger = new UserActivityLogger(ConfigurationManager.ConnectionStrings["TaskManagement.Properties.Settings.TaskManagementConnectionString"].ConnectionString);
         }
 
@@ -176,7 +175,6 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
         {
             try
             {
-                // Валидация данных
                 if (!FieldValidator.IsValidName(FirstName))
                 {
                     MessageBox.Show("Имя должно содержать только буквы и не менее двух символов без пробелов.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -241,14 +239,12 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
                 _accountDataTableAdapter.Update(_dataSet.AccountData);
 
-                // Логирование успешного редактирования пользователя
                 _userActivityLogger.LogUserActivity(GetUserId(CurrentUserLogin), CurrentUserLogin, $"успешно отредактировал пользователя {Login} в таблице Users");
 
                 MessageBox.Show("Данные успешно сохранены!");
 
                 UserUpdated?.Invoke(this, EventArgs.Empty);
 
-                // Закрытие окна
                 Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.DataContext == this)?.Close();
             }
             catch (Exception ex)
@@ -259,7 +255,6 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
         private void Cancel(object parameter)
         {
-            // Закрытие окна
             Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.DataContext == this)?.Close();
         }
 

@@ -132,7 +132,6 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
                 MessageBox.Show("Запись успешно добавлена!");
 
-                // Логирование успешного добавления записи
                 _userActivityLogger.LogUserActivity(GetUserId(_currentUserLogin), _currentUserLogin, $"добавил запись в историю задачи ID {SelectedTaskId}");
 
                 HistoryAdded?.Invoke(this, EventArgs.Empty);

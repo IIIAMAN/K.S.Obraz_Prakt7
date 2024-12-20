@@ -74,7 +74,6 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
                 MessageBox.Show("Роль успешно добавлена!");
 
-                // Логирование действия пользователя
                 _userActivityLogger.LogUserActivity(GetUserId(CurrentUserLogin), CurrentUserLogin, $"добавил новую роль: {RoleName}");
 
                 RoleAdded?.Invoke(this, EventArgs.Empty);

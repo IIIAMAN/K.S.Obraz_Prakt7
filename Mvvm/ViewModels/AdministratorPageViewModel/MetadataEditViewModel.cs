@@ -128,7 +128,6 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
                     _metadataTableAdapter.Update(metadataRow);
 
-                    // Логирование успешного обновления метаданных
                     _userActivityLogger.LogUserActivity(GetUserId(_currentUserLogin), _currentUserLogin, $"успешно обновил метаданные для сущности {EntityName} с ключом {Key}");
 
                     MessageBox.Show("Метаданные успешно обновлены!");

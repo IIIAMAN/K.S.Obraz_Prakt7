@@ -93,7 +93,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
         {
             if (SelectedUserActivityLog != null)
             {
-                var editWindow = new UserActivityLogEditWindow(SelectedUserActivityLog.ID, CurrentUserLogin); // Передаем ID записи
+                var editWindow = new UserActivityLogEditWindow(SelectedUserActivityLog.ID, CurrentUserLogin);
                 var viewModel = (UserActivityLogEditViewModel)editWindow.DataContext;
 
                 viewModel.LogUpdated += (s, args) =>
@@ -104,7 +104,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
                 if (editWindow.ShowDialog() == true)
                 {
-                    LoadUserActivityLogs(); // Обновляем DataGrid после редактирования
+                    LoadUserActivityLogs();
                 }
             }
         }
@@ -123,10 +123,9 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
                             logRow.Delete();
                             _userActivityLogTableAdapter.Update(_dataSet.UserActivityLog);
 
-                            // Логирование успешного удаления записи
                             _userActivityLogger.LogUserActivity(GetUserId(_currentUserLogin), _currentUserLogin, $"удалил запись активности");
 
-                            LoadUserActivityLogs(); // Обновляем данные после удаления
+                            LoadUserActivityLogs();
                         }
                     }
                     catch (Exception ex)

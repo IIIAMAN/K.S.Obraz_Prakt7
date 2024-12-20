@@ -9,7 +9,7 @@ using TaskManagement.Models;
 using TaskManagement.MVVM.Views.AdministratorPages.UserPage;
 using TaskManagement.TaskManagementDataSetTableAdapters;
 
-namespace TaskManagement.ViewModels.AdministratorPageViewModels // Пространство имен должно быть указано именно так
+namespace TaskManagement.ViewModels.AdministratorPageViewModels
 {
     public class UsersPageViewModel : ViewModelBase
     {
@@ -115,7 +115,7 @@ namespace TaskManagement.ViewModels.AdministratorPageViewModels // Простр�
             if (SelectedUser != null)
             {
                 var userRow = _dataSet.Users.FindByID(SelectedUser.ID);
-                var editWindow = new UserEditWindow(userRow, CurrentUserLogin); // Передаем currentUserLogin
+                var editWindow = new UserEditWindow(userRow, CurrentUserLogin);
                 if (editWindow.ShowDialog() == true)
                 {
                     LoadUsers();
@@ -154,7 +154,6 @@ namespace TaskManagement.ViewModels.AdministratorPageViewModels // Простр�
                             userRow.Delete();
                             _usersTableAdapter.Update(_dataSet.Users);
 
-                            // Логирование успешного удаления пользователя
                             _userActivityLogger.LogUserActivity(GetUserId(_currentUserLogin), _currentUserLogin, $"успешно удалил пользователя {SelectedUser.Login} из таблицы Users");
 
                             Console.WriteLine("Пользователь успешно удален.");
@@ -178,7 +177,7 @@ namespace TaskManagement.ViewModels.AdministratorPageViewModels // Простр�
         private int GetUserId(string login)
         {
             var userRow = GetUserFromDatabase(login);
-            return userRow?.ID ?? 0; // Получаем ID пользователя (если найден)
+            return userRow?.ID ?? 0;    
         }
 
         private TaskManagementDataSet.UsersRow GetUserFromDatabase(string login)

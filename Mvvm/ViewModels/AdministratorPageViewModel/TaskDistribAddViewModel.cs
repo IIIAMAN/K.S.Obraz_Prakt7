@@ -73,17 +73,17 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
         {
             try
             {
-                // Логирование выбранных значений
+    
                 Console.WriteLine($"SelectedTaskId: {SelectedTaskId}, SelectedUserId: {SelectedUserId}");
 
-                // Проверяем, выбраны ли задачи и пользователи
+         
                 if (SelectedTaskId == 0 || SelectedUserId == 0)
                 {
                     MessageBox.Show("Пожалуйста, выберите задачу и пользователя.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
-                // Добавление нового распределения
+       
                 var newDistribRow = _dataSet.TaskDistribution.NewTaskDistributionRow();
                 newDistribRow.TaskID = SelectedTaskId;
                 newDistribRow.UserID = SelectedUserId;
@@ -96,12 +96,12 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
                 DistribAdded?.Invoke(this, EventArgs.Empty);
 
-                // Закрытие окна
+          
                 Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.DataContext == this)?.Close();
             }
             catch (Exception ex)
             {
-                // Логирование ошибки
+     
                 Console.WriteLine($"Ошибка при добавлении распределения: {ex.Message}");
                 MessageBox.Show($"Ошибка при добавлении распределения: {ex.Message}");
             }
@@ -109,7 +109,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
         private void Cancel(object parameter)
         {
-            // Закрытие окна
+        
             Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.DataContext == this)?.Close();
         }
     }

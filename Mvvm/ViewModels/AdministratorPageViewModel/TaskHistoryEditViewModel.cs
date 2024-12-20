@@ -159,13 +159,12 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
                     historyRow.TaskID = SelectedTaskId;
                     historyRow.StatusID = SelectedStatusId;
                     historyRow.UserID = SelectedUserId;
-                    historyRow.ChangeDate = DateTime.Now; // Обновление даты изменения
+                    historyRow.ChangeDate = DateTime.Now;
 
                     _taskHistoryTableAdapter.Update(historyRow);
 
                     MessageBox.Show("Запись успешно обновлена!");
 
-                    // Логирование успешного обновления записи
                     _userActivityLogger.LogUserActivity(GetUserId(_currentUserLogin), _currentUserLogin, $"обновил запись в истории задачи ID {SelectedTaskId}");
 
                     HistoryUpdated?.Invoke(this, EventArgs.Empty);

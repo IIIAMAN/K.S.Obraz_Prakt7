@@ -128,7 +128,6 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
                     MessageBox.Show("Запись успешно обновлена!");
 
-                    // Логирование успешного обновления записи
                     _userActivityLogger.LogUserActivity(GetUserId(_currentUserLogin), _currentUserLogin, $"обновил запись активности пользователя ID {SelectedUserId}: {Action}");
 
                     LogUpdated?.Invoke(this, EventArgs.Empty);

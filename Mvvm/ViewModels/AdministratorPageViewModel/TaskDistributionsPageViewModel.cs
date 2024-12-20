@@ -128,7 +128,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
         {
             if (SelectedTaskDistribution != null)
             {
-                var editWindow = new TaskDistribEditWindow(SelectedTaskDistribution.ID); // Передаем ID распределения
+                var editWindow = new TaskDistribEditWindow(SelectedTaskDistribution.ID);
                 var viewModel = (TaskDistribEditViewModel)editWindow.DataContext;
 
                 viewModel.DistribUpdated += (s, args) =>
@@ -139,7 +139,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
                 if (editWindow.ShowDialog() == true)
                 {
-                    LoadTaskDistributions(); // Обновляем данные после редактирования
+                    LoadTaskDistributions();
                     LoadTasks();
                 }
             }
@@ -158,7 +158,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
                         {
                             distribRow.Delete();
                             _taskDistribsTableAdapter.Update(_dataSet.TaskDistribution);
-                            LoadTaskDistributions(); // Обновляем данные после удаления
+                            LoadTaskDistributions();
                             LoadTasks();
                         }
                     }

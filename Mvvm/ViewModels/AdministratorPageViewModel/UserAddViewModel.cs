@@ -143,7 +143,6 @@ namespace TaskManagement.ViewModels.AdministratorPageViewModels
         {
             try
             {
-                // Валидация данных
                 if (!FieldValidator.IsValidName(FirstName))
                 {
                     MessageBox.Show("Имя должно содержать только буквы и не менее двух символов без пробелов.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -189,7 +188,6 @@ namespace TaskManagement.ViewModels.AdministratorPageViewModels
                 var userRow = _dataSet.Users.NewUsersRow();
                 userRow.Login = Login;
 
-                // Хэшируем пароль с использованием того же алгоритма, что и в LoginViewModel
                 userRow.Password = HashPassword(SecureStringToString(Password));
 
                 userRow.RoleID = SelectedRoleId;
@@ -209,14 +207,12 @@ namespace TaskManagement.ViewModels.AdministratorPageViewModels
                 _dataSet.AccountData.AddAccountDataRow(accountRow);
                 _accountDataTableAdapter.Update(_dataSet.AccountData);
 
-                // Логирование успешного добавления пользователя
                 _userActivityLogger.LogUserActivity(GetUserId(_currentUserLogin), _currentUserLogin, $"успешно добавил пользователя {Login} в таблице Users");
 
                 MessageBox.Show("Пользователь успешно добавлен!");
 
                 UserAdded?.Invoke(this, EventArgs.Empty);
 
-                // Закрываем окно после успешного добавления
                 Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.DataContext == this)?.Close();
             }
             catch (Exception ex)
@@ -252,7 +248,6 @@ namespace TaskManagement.ViewModels.AdministratorPageViewModels
 
         private void Cancel(object parameter)
         {
-            // Закрываем окно
             Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.DataContext == this)?.Close();
         }
 

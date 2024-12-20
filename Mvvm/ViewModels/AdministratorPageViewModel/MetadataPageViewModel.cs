@@ -82,7 +82,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
         {
             if (SelectedMetadata != null)
             {
-                var editWindow = new MetadataEditWindow(SelectedMetadata.ID, _currentUserLogin); // Передаем ID метаданных
+                var editWindow = new MetadataEditWindow(SelectedMetadata.ID, _currentUserLogin);
                 var viewModel = (MetadataEditViewModel)editWindow.DataContext;
 
                 viewModel.MetadataUpdated += (s, args) =>
@@ -92,7 +92,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
                 if (editWindow.ShowDialog() == true)
                 {
-                    LoadMetadata(); // Обновляем DataGrid после редактирования
+                    LoadMetadata();
                 }
             }
         }
@@ -111,10 +111,9 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
                             metadataRow.Delete();
                             _metadataTableAdapter.Update(_dataSet.Metadata);
 
-                            // Логирование успешного удаления метаданных
                             _userActivityLogger.LogUserActivity(GetUserId(_currentUserLogin), _currentUserLogin, $"успешно удалил метаданные");
 
-                            LoadMetadata(); // Обновляем данные после удаления
+                            LoadMetadata();
                         }
                     }
                     catch (Exception ex)

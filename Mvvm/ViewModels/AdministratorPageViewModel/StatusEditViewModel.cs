@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using TaskManagement.Helpers; // Пространство имен для FieldValidator
+using TaskManagement.Helpers;
 using TaskManagement.Models;
 using TaskManagement.TaskManagementDataSetTableAdapters;
 using TaskManagement.ViewModels;
@@ -15,7 +15,7 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
         private TaskManagementDataSet _dataSet;
         private StatusesTableAdapter _statusesTableAdapter;
         private readonly UserActivityLogger _userActivityLogger;
-        private string _currentUserLogin; // Логин текущего пользователя
+        private string _currentUserLogin;
 
         private int _statusId;
         private string _statusName;
@@ -109,7 +109,6 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
                     MessageBox.Show("Статус успешно обновлен!");
 
-                    // Логирование действия
                     _userActivityLogger.LogUserActivity(GetUserId(CurrentUserLogin), CurrentUserLogin, $"обновил статус с именем: {oldStatusName} на {StatusName}");
 
                     StatusUpdated?.Invoke(this, EventArgs.Empty);
@@ -129,7 +128,6 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
         private void Cancel(object parameter)
         {
-            // Логирование отмены
             _userActivityLogger.LogUserActivity(GetUserId(CurrentUserLogin), CurrentUserLogin, "Отмена редактирования статуса");
 
             Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.DataContext == this)?.Close();

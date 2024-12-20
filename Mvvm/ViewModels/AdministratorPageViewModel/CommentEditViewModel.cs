@@ -147,17 +147,14 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
         {
             try
             {
-                // Проверка на заполнение всех полей
                 if (string.IsNullOrEmpty(Title) || string.IsNullOrEmpty(CommentText) || SelectedTaskId == 0 || SelectedUserId == 0)
                 {
                     MessageBox.Show("Пожалуйста, заполните все поля.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
-                // Логирование данных перед обновлением
                 Console.WriteLine($"Updating comment: ID = {CommentId}, Title = {Title}, CommentText = {CommentText}, TaskID = {SelectedTaskId}, UserID = {SelectedUserId}, UpdatedAt = {UpdatedAt}");
 
-                // Обновление существующего комментария
                 var commentRow = _dataSet.Comments.FindByID(CommentId);
 
                 if (commentRow != null)
@@ -174,7 +171,6 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
                     CommentUpdated?.Invoke(this, EventArgs.Empty);
 
-                    // Закрытие окна
                     Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.DataContext == this)?.Close();
                 }
                 else
@@ -184,7 +180,6 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
             }
             catch (Exception ex)
             {
-                // Логирование ошибки
                 Console.WriteLine($"Ошибка при обновлении комментария: {ex.Message}");
                 MessageBox.Show($"Ошибка при обновлении комментария: {ex.Message}");
             }
@@ -192,7 +187,6 @@ namespace TaskManagement.MVVM.ViewModels.AdministratorPageViewModel
 
         private void Cancel(object parameter)
         {
-            // Закрытие окна
             Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.DataContext == this)?.Close();
         }
     }
